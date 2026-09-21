@@ -1,0 +1,14 @@
+/* 省略基础样式... */
+.container { max-width: 500px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+h1 { text-align: center; }
+.todo-form { display: flex; margin-bottom: 20px; }
+.todo-input { flex-grow: 1; padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 16px; }
+.todo-form button { padding: 10px 15px; border: none; background-color: #007bff; color: white; cursor: pointer; border-radius: 4px; margin-left: 10px; }
+
+.todo-list { list-style: none; padding: 0; }
+.todo-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+.todo-item.completed .todo-text { text-decoration: line-through; color: #aaa; } /* 完成项的样式 */
+.todo-item input[type="checkbox"] { margin-right: 15px; width: 20px; height: 20px; }
+.todo-text { flex-grow: 1; }
+.delete-btn, .edit-btn { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 18px; opacity: 0; transition: opacity 0.2s; }
+.todo-item:hover .delete-btn, .todo-item:hover .edit-btn { opacity: 1; } /* 鼠标悬浮时显示删除按钮 */
