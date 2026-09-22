@@ -17,12 +17,12 @@ function render() {
         li.classList.add('todo-item');
         li.setAttribute('data-id', todo.id); // 设置 data-id，方便后续操作
 
-        if (todo.status === "COMPLETED") {
+        if (todo.isCompleted) {
             li.classList.add('completed');
         }
 
         li.innerHTML = `
-            <input type="checkbox" class="toggle-complete" ${todo.status === "COMPLETED" ? 'checked' : ''}>
+            <input type="checkbox" class="toggle-complete" ${todo.isCompleted ? 'checked' : ''}>
             <span class="todo-text">${todo.text}</span>
             <button class="edit-btn">🖋</button>
             <button class="delete-btn">×</button>
@@ -76,7 +76,6 @@ todoForm.addEventListener('submit', async function(event) {
 todoList.addEventListener('click', async function(event) {
 
     const target = event.target;
-    console.log(target);
     const parentLi = target.closest('.todo-item');
     if (!parentLi) return;
 
@@ -84,23 +83,22 @@ todoList.addEventListener('click', async function(event) {
     if (event.target.classList.contains('toggle-complete')) {
         const checkbox = event.target;
         const isChecked = checkbox.checked;
-
+        // 找出修改状态的 id 对应的 todo 事项
         const todoToUpdate = todos.find(t => t.id === todoId);
-        const newStatus = isChecked ? 'COMPLETED': 'PENDING';
 
         try {
             await fetch(`${API_URL}/${todoId}/status`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({status: newStatus})
+                body: JSON.stringify({isCompleted: isChecked})
             })
 
-            todoToUpdate.status = newStatus;
+            todoToUpdate.isCompleted = isChecked;
             render();
         } catch (error) {
             console.error('更新状态失败：', error);
             // 更新失败则还原状态
-            target.checked = !newStatus;
+            target.checked = !isChecked;
         }
     }
 })

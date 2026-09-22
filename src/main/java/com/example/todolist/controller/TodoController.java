@@ -1,7 +1,9 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.DTO.UpdateStatusRequest;
+import com.example.todolist.DTO.TodoResponseDTO;
+import com.example.todolist.DTO.TodoStatusUpdateDTO;
 import com.example.todolist.entity.Todo;
+import com.example.todolist.entity.TodoStatus;
 import com.example.todolist.service.TodoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,9 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-
     @GetMapping
-    public List<Todo> getAllTodos(){
-        return todoService.findAll();
+    public List<TodoResponseDTO> getAllTodos(){
+        return todoService.getTodoList();
     }
 
     @PostMapping
@@ -32,6 +33,7 @@ public class TodoController {
     // 修改字段
     @PatchMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
+
         Todo todo = todoService.findByid(id);
         if (updatedTodo.getText() != null){
             todo.setText(updatedTodo.getText());
@@ -42,8 +44,12 @@ public class TodoController {
 
     // 修改状态
     @PutMapping("/{id}/status")
-    public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody UpdateStatusRequest request){
-        todoService.updateStatus(id, request.getStatus());
+    public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody TodoStatusUpdateDTO requestData){
+        // 获取前端传来的布尔值
+        Boolean isCompleted = requestData.getIsCompleted();
+        // 前端的布尔值翻译为后端对应的枚举
+        TodoStatus targetStatus = isCompleted ? TodoStatus.COMPLETED : TodoStatus.PENDING;
+        todoService.updateStatus(id, targetStatus);
         return ResponseEntity.ok().build();
     }
 

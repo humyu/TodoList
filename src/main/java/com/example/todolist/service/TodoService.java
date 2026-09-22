@@ -1,11 +1,13 @@
 package com.example.todolist.service;
 
+import com.example.todolist.DTO.TodoResponseDTO;
 import com.example.todolist.entity.Todo;
 import com.example.todolist.entity.TodoStatus;
 import com.example.todolist.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TodoService {
@@ -43,5 +45,16 @@ public class TodoService {
 
     public void deleteById(Long id){
         todoRepository.deleteById(id);
+    }
+
+    public List<TodoResponseDTO> getTodoList(){
+        List<Todo> todos = todoRepository.findAll();
+        return todos.stream().map(todo -> {
+            TodoResponseDTO dto = new TodoResponseDTO();
+            dto.setId(todo.getId());
+            dto.setText(todo.getText());
+            dto.setIsCompleted(todo.getStatus() == TodoStatus.COMPLETED);
+            return dto;
+        }).collect(Collectors.toList());
     }
 }
