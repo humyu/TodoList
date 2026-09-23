@@ -34,7 +34,7 @@ public class TodoController {
     @PatchMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
 
-        Todo todo = todoService.findByid(id);
+        Todo todo = todoService.findById(id);
         if (updatedTodo.getText() != null){
             todo.setText(updatedTodo.getText());
         }
@@ -53,6 +53,10 @@ public class TodoController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 逻辑删除
+     * @param id 被逻辑删除的事项的 id
+     */
     @DeleteMapping("{id}")
     public void deleteTodo(@PathVariable Long id){
         todoService.deleteById(id);

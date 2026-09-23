@@ -3,7 +3,7 @@ package com.example.todolist.DTO;
 import com.example.todolist.entity.TodoStatus;
 
 /**
- * 将前端传入的值转化为后端
+ * 将前端传入的布尔值转化为后端的布尔值
  */
 public class TodoStatusUpdateDTO{
 

@@ -35,7 +35,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Todo findByid(Long id){
+    public Todo findById(Long id){
         return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在"));
     }
 
@@ -43,8 +43,14 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    /**
+     * 逻辑删除
+     * @param id 被逻辑删除的事项的 id
+     */
     public void deleteById(Long id){
-        todoRepository.deleteById(id);
+        Todo todo = todoRepository.getById(id);
+        todo.setStatus(TodoStatus.DELETED);
+        todoRepository.save(todo);
     }
 
     public List<TodoResponseDTO> getTodoList(){
