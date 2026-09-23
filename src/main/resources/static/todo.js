@@ -88,7 +88,7 @@ todoList.addEventListener('change', async function(event) {
 
         try {
             await fetch(`${API_URL}/${todoId}/status`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({isCompleted: isChecked})
             })

@@ -20,11 +20,20 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+    /**
+     * 获取所有没有被逻辑删除的todo
+     * @return 没有被逻辑删除的todo
+     */
     @GetMapping
     public List<TodoResponseDTO> getAllTodos(){
         return todoService.getTodoList();
     }
 
+    /**
+     * 创建新事项
+     * @param todo 接收前端的todo
+     * @return 保存的新事项
+     */
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo){
         return todoService.save(todo);
@@ -43,7 +52,7 @@ public class TodoController {
     }
 
     // 修改状态
-    @PutMapping("/{id}/status")
+    @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody TodoStatusUpdateDTO requestData){
         // 获取前端传来的布尔值
         Boolean isCompleted = requestData.getIsCompleted();
