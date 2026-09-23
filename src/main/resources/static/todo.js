@@ -73,7 +73,7 @@ todoForm.addEventListener('submit', async function(event) {
 });
 
 // 事件监听：是否完成事项
-todoList.addEventListener('click', async function(event) {
+todoList.addEventListener('change', async function(event) {
 
     const target = event.target;
     const parentLi = target.closest('.todo-item');

@@ -31,10 +31,6 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public List<Todo> findAll(){
-        return todoRepository.findAll();
-    }
-
     public Todo findById(Long id){
         return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("不存在"));
     }
@@ -54,7 +50,9 @@ public class TodoService {
     }
 
     public List<TodoResponseDTO> getTodoList(){
-        List<Todo> todos = todoRepository.findAll();
+        // 先查询没有被逻辑删除的 todo
+        List<Todo> todos = todoRepository.findByStatusNot(TodoStatus.DELETED);
+
         return todos.stream().map(todo -> {
             TodoResponseDTO dto = new TodoResponseDTO();
             dto.setId(todo.getId());

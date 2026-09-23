@@ -1,7 +1,7 @@
 package com.example.todolist.DTO;
 
 /**
- * 返回给前端的对象
+ * 为了不暴露后端的字段，后端字段需要转化给前端使用
  */
 public class TodoResponseDTO {
     private Long id;
