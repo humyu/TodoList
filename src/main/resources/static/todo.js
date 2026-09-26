@@ -17,12 +17,12 @@ function render() {
         li.classList.add('todo-item');
         li.setAttribute('data-id', todo.id); // 设置 data-id，方便后续操作
 
-        if (todo.isCompleted) {
+        if (todo.finished) {
             li.classList.add('completed');
         }
 
         li.innerHTML = `
-            <input type="checkbox" class="toggle-complete" ${todo.isCompleted ? 'checked' : ''}>
+            <input type="checkbox" class="toggle-complete" ${todo.finished ? 'checked' : ''}>
             <span class="todo-text">${todo.text}</span>
             <button class="edit-btn">🖋</button>
             <button class="delete-btn">×</button>
@@ -46,11 +46,12 @@ async function loadTodosFromServer() {
 todoForm.addEventListener('submit', async function(event) {
     event.preventDefault(); // 阻止表单默认提交行为
     const newTodoText = todoInput.value.trim();
+    console.log(todoInput.parentElement.classList.contains('completed'));
 
     if (newTodoText !== '') {
         const newTodo = {
             text: newTodoText,
-            completed: false
+            finished: false
         };
 
         try {
@@ -90,10 +91,10 @@ todoList.addEventListener('change', async function(event) {
             await fetch(`${API_URL}/${todoId}/status`, {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({isCompleted: isChecked})
+                body: JSON.stringify({finished: isChecked})
             })
 
-            todoToUpdate.isCompleted = isChecked;
+            todoToUpdate.finished = isChecked;
             render();
         } catch (error) {
             console.error('更新状态失败：', error);

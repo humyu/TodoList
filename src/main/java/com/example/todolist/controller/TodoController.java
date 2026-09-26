@@ -55,9 +55,9 @@ public class TodoController {
     @PatchMapping("/{id}/status")
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody TodoStatusUpdateDTO requestData){
         // 获取前端传来的布尔值
-        Boolean isCompleted = requestData.getIsCompleted();
+        Boolean finished = requestData.getFinished();
         // 前端的布尔值翻译为后端对应的枚举
-        TodoStatus targetStatus = isCompleted ? TodoStatus.COMPLETED : TodoStatus.PENDING;
+        TodoStatus targetStatus = finished ? TodoStatus.COMPLETED : TodoStatus.PENDING;
         todoService.updateStatus(id, targetStatus);
         return ResponseEntity.ok().build();
     }

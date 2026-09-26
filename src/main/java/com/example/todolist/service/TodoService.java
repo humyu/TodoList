@@ -57,7 +57,7 @@ public class TodoService {
             TodoResponseDTO dto = new TodoResponseDTO();
             dto.setId(todo.getId());
             dto.setText(todo.getText());
-            dto.setIsCompleted(todo.getStatus() == TodoStatus.COMPLETED);
+            dto.setFinished(todo.getStatus() == TodoStatus.COMPLETED);
             return dto;
         }).collect(Collectors.toList());
     }

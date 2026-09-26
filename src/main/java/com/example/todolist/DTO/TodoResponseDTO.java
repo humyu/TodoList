@@ -6,7 +6,7 @@ package com.example.todolist.DTO;
 public class TodoResponseDTO {
     private Long id;
     private String text;
-    private Boolean isCompleted;
+    private Boolean finished;
 
     public Long getId() {
         return id;
@@ -24,11 +24,11 @@ public class TodoResponseDTO {
         this.text = text;
     }
 
-    public Boolean getIsCompleted() {
-        return isCompleted;
+    public Boolean getFinished() {
+        return finished;
     }
 
-    public void setIsCompleted(Boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
     }
 }

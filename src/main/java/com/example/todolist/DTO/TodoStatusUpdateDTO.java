@@ -6,13 +6,13 @@ package com.example.todolist.DTO;
  */
 public class TodoStatusUpdateDTO{
 
-    private Boolean isCompleted;
+    private Boolean finished;
 
-    public Boolean getIsCompleted() {
-        return isCompleted;
+    public Boolean getFinished() {
+        return finished;
     }
 
-    public void setIsCompleted(Boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
     }
 }
