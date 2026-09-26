@@ -41,14 +41,14 @@ public class TodoController {
 
     // 修改字段
     @PatchMapping("/{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
+    public ResponseEntity<TodoResponseDTO> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
 
         Todo todo = todoService.findById(id);
         if (updatedTodo.getText() != null){
             todo.setText(updatedTodo.getText());
         }
-        todoService.save(todo);
-        return ResponseEntity.ok(todo);
+        TodoResponseDTO dto = todoService.update(todo);
+        return ResponseEntity.ok(dto);
     }
 
     // 修改状态

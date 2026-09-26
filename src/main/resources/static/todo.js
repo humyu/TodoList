@@ -16,6 +16,7 @@ function render() {
         const li = document.createElement('li');
         li.classList.add('todo-item');
         li.setAttribute('data-id', todo.id); // 设置 data-id，方便后续操作
+        console.log(todo)
 
         if (todo.finished) {
             li.classList.add('completed');
@@ -46,7 +47,6 @@ async function loadTodosFromServer() {
 todoForm.addEventListener('submit', async function(event) {
     event.preventDefault(); // 阻止表单默认提交行为
     const newTodoText = todoInput.value.trim();
-    console.log(todoInput.parentElement.classList.contains('completed'));
 
     if (newTodoText !== '') {
         const newTodo = {

@@ -40,6 +40,20 @@ public class TodoService {
     }
 
     /**
+     * 保存并更新 todo
+     * @param todo 要更新的 todo
+     * @return 返回更新后并转化为前端使用的 dto
+     */
+    public TodoResponseDTO update(Todo todo){
+        todoRepository.save(todo);
+        TodoResponseDTO dto = new TodoResponseDTO();
+        dto.setId(todo.getId());
+        dto.setText(todo.getText());
+        dto.setFinished(todo.getStatus() == TodoStatus.COMPLETED);
+        return dto;
+    }
+
+    /**
      * 逻辑删除
      * @param id 被逻辑删除的事项的 id
      */
