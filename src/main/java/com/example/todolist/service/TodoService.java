@@ -1,6 +1,6 @@
 package com.example.todolist.service;
 
-import com.example.todolist.DTO.TodoResponseDTO;
+import com.example.todolist.vo.TodoResponseVO;
 import com.example.todolist.entity.Todo;
 import com.example.todolist.entity.TodoStatus;
 import com.example.todolist.repository.TodoRepository;
@@ -44,9 +44,9 @@ public class TodoService {
      * @param todo 要更新的 todo
      * @return 返回更新后并转化为前端使用的 dto
      */
-    public TodoResponseDTO update(Todo todo){
+    public TodoResponseVO update(Todo todo){
         todoRepository.save(todo);
-        TodoResponseDTO dto = new TodoResponseDTO();
+        TodoResponseVO dto = new TodoResponseVO();
         dto.setId(todo.getId());
         dto.setText(todo.getText());
         dto.setFinished(todo.getStatus() == TodoStatus.COMPLETED);
@@ -63,12 +63,12 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public List<TodoResponseDTO> getTodoList(){
+    public List<TodoResponseVO> getTodoList(){
         // 先查询没有被逻辑删除的 todo
         List<Todo> todos = todoRepository.findByStatusNot(TodoStatus.DELETED);
 
         return todos.stream().map(todo -> {
-            TodoResponseDTO dto = new TodoResponseDTO();
+            TodoResponseVO dto = new TodoResponseVO();
             dto.setId(todo.getId());
             dto.setText(todo.getText());
             dto.setFinished(todo.getStatus() == TodoStatus.COMPLETED);

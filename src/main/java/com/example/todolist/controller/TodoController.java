@@ -1,7 +1,7 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.DTO.TodoResponseDTO;
-import com.example.todolist.DTO.TodoStatusUpdateDTO;
+import com.example.todolist.vo.TodoResponseVO;
+import com.example.todolist.dto.TodoStatusUpdateDTO;
 import com.example.todolist.entity.Todo;
 import com.example.todolist.entity.TodoStatus;
 import com.example.todolist.service.TodoService;
@@ -25,7 +25,7 @@ public class TodoController {
      * @return 没有被逻辑删除的todo
      */
     @GetMapping
-    public List<TodoResponseDTO> getAllTodos(){
+    public List<TodoResponseVO> getAllTodos(){
         return todoService.getTodoList();
     }
 
@@ -41,13 +41,13 @@ public class TodoController {
 
     // 修改字段
     @PatchMapping("/{id}")
-    public ResponseEntity<TodoResponseDTO> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
+    public ResponseEntity<TodoResponseVO> updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo){
 
         Todo todo = todoService.findById(id);
         if (updatedTodo.getText() != null){
             todo.setText(updatedTodo.getText());
         }
-        TodoResponseDTO dto = todoService.update(todo);
+        TodoResponseVO dto = todoService.update(todo);
         return ResponseEntity.ok(dto);
     }
 

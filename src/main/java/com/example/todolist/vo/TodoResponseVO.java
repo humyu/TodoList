@@ -1,9 +1,9 @@
-package com.example.todolist.DTO;
+package com.example.todolist.vo;
 
 /**
  * 为了不暴露后端的字段，后端字段需要转化给前端使用
  */
-public class TodoResponseDTO {
+public class TodoResponseVO {
     private Long id;
     private String text;
     private Boolean finished;
